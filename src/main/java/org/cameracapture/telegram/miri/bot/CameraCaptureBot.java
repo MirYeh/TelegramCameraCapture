@@ -67,9 +67,10 @@ public class CameraCaptureBot implements ICameraBot {
 	 * @see TelegramCalls#sendMessage(String, String)
 	 */
 	public void handleCommand(String chatId, String command) throws IOException {
+		command = command.substring(1, command.length() -1); //removes quotation marks from command
 		logger.trace("received command ({}) from chat id ({})", command, chatId);
 		
-		if (command.contains("/capture")) {
+		if (command.equalsIgnoreCase("/capture")) {
 			telegramCalls.sendMessage(chatId, "Capturing image...");
 			try { //send message to user if unable to capture image
 				telegramCalls.sendPhoto(chatId, cameraCapture.capture(chatId));
