@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.cameracapture.telegram.miri.bot.CameraCaptureBot;
+import org.cameracapture.telegram.miri.bot.ICameraBot;
 import org.cameracapture.telegram.miri.exceptions.*;
 import org.cameracapture.telegram.miri.util.FileUtil;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class TelegramCalls {
 	private static final Logger logger = LoggerFactory.getLogger(TelegramCalls.class);
 	private static String baseUrl;
 	private int lastUpdateId = 0;
-	private static CameraCaptureBot bot;
+	private static ICameraBot bot;
 	
 	/**
 	 * Initializes TelegramCalls.

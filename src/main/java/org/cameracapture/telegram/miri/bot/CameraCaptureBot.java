@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.cameracapture.telegram.miri.TelegramCalls;
 import org.cameracapture.telegram.miri.camera.CameraCapture;
+import org.cameracapture.telegram.miri.camera.ICamera;
 import org.cameracapture.telegram.miri.exceptions.*;
 import org.cameracapture.telegram.miri.util.FileUtil;
 import org.slf4j.Logger;
@@ -13,12 +14,12 @@ import org.slf4j.LoggerFactory;
  * Represents the telegram bot used to communicate with the camera.
  * @author Miri Yehezkel
  */
-public class CameraCaptureBot {
+public class CameraCaptureBot implements ICameraBot {
 	private static CameraCaptureBot instance; 
 	private final String botTokenFileName 	= 	"CameraCaptureBotToken";
 	private final Logger logger = LoggerFactory.getLogger(CameraCaptureBot.class);
 	private static TelegramCalls telegramCalls;
-	private static CameraCapture cameraCapture;
+	private static ICamera cameraCapture;
 	private String botToken;
 	
 	/**
@@ -62,7 +63,6 @@ public class CameraCaptureBot {
 	 * @param chatId Id of the chat
 	 * @param command command given
 	 * @throws IOException if unable to connect to telegram
-	 * @throws CameraCaptureException if unable to complete photo capture
 	 * @see TelegramCalls#sendMessage(String, String)
 	 * @see TelegramCalls#sendMessage(String, String)
 	 */

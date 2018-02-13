@@ -19,7 +19,7 @@ import com.github.sarxos.webcam.Webcam;
  * Handles camera setup and photo capture.
  * @author Miri Yehezkel
  */
-public class CameraCapture {
+public class CameraCapture implements ICamera {
 	private static CameraCapture instance;
 	private final String captureDirName = "captures";
 	private final Logger logger = LoggerFactory.getLogger(CameraCapture.class);
