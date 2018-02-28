@@ -1,4 +1,4 @@
-package org.cameracapture.telegram.miri.util;
+package org.miri.camcapture.util;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.cameracapture.telegram.miri.exceptions.FileAccessException;
+import org.miri.camcapture.exceptions.FileAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

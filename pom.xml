@@ -1,10 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.cameracapture.telegram.miri</groupId>
-	<artifactId>camera-capture-telegram</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>org.miri.camcapture</groupId>
+	<artifactId>TelegramCameraCapture</artifactId>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,7 +17,7 @@
 
 	<dependencies>
 
-		<!-- Http requested -->
+		<!-- HTTP requests -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -36,31 +37,50 @@
 			<version>1.1</version>
 		</dependency>
 
-		<!-- Camera capture -->
-		<dependency>
-			<groupId>com.github.sarxos</groupId>
-			<artifactId>webcam-capture</artifactId>
-			<version>0.3.11</version>
-		</dependency>
-
-		<!-- Logging -->
+		<!-- Logging (API)-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 
+		<!-- Logging (console impl)-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 
+		<!-- Camera capture library -->
+		<dependency>
+			<groupId>com.github.sarxos</groupId>
+			<artifactId>webcam-capture</artifactId>
+			<version>0.3.11</version>
+		</dependency>
+
+		<!-- Video capture library -->
+		<dependency>
+			<groupId>xuggle</groupId>
+			<artifactId>xuggle-xuggler</artifactId>
+			<version>5.4</version>
+		</dependency>
+
 	</dependencies>
+
+
+	<repositories>
+
+		<!-- Video capture repo -->
+		<repository>
+			<id>xuggle repo</id>
+			<url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
+		</repository>
+
+	</repositories>
 
 	<build>
 		<plugins>
-
+			<!-- Outputs a single distribute-able archive -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -74,7 +94,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										org.cameracapture.telegram.miri.TelegramCameraCapture
+										org.miri.camcapture.Main
 									</mainClass>
 								</manifest>
 							</archive>
