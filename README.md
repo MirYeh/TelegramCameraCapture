@@ -1,4 +1,4 @@
-#Telegram Camera Capture
+# Telegram Camera Capture
 
 Capture images and videos from a web camera using a motion detection engine and stream it remotely via Telegram.
 
@@ -7,7 +7,7 @@ Running this program on your computer, you can start asking your Telegram Bot to
    To use this program, you must first save your bot token (search @BotFather on your telegram application) to a file named _CameraCaptureBotToken_ in the same folder as you jar file.
 
 
-##Supported Commands
+## Supported Commands
 
 Telegram Camera Capture supports these following commands:
 
