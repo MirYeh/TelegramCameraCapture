@@ -23,5 +23,6 @@ public class TelegramConstants {
 	public static final String CHAT_FIELD 		= "chat";
 	public static final String ID_FIELD 		= "id";
 	public static final String RESULT_FIELD 	= "result";
+	public static final String UPDATE_ID_FIELD 	= "update_id";
 	
 }
