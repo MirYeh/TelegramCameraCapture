@@ -11,19 +11,20 @@ import org.slf4j.LoggerFactory;
  * @author Miri Yehezkel
  *
  */
-public class Main implements Runnable {
+public class Main {
 	private final Logger logger = LoggerFactory.getLogger(Main.class);
 	private ITelegram telegram = Telegram.INSTANCE;
 	
 	/**
 	 * Retrieves updates from telegram.
 	 */
-	public void run() {
+	public void getUpdates() {
 		while(true) {
 			try {
 				telegram.getUpdates();
 				Thread.sleep(1000);
 			} catch (BotTokenAccessException exc) {
+				//unable to proceed without bot token
 				logger.error(exc.getMessage(), exc);
 				System.exit(1);
 			} catch (Exception exc) {
@@ -37,8 +38,7 @@ public class Main implements Runnable {
 	}
 	
 	public static void main(String[] args) {
-		Thread main = new Thread(new Main());
-		main.start();
+		new Main().getUpdates();
 	}
 	
 	

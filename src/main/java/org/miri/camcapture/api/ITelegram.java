@@ -33,7 +33,7 @@ public interface ITelegram {
 	 * @throws IOException if unable to connect to telegram
 	 * @throws CameraException if unable to complete capture
 	 */
-	void executeCommand(String chatId, String command) 
+	void execute(String chatId, String command) 
 			throws IOException, CameraException, BotTokenAccessException, FileAccessException, TelegramException;
 	
 	/**
@@ -70,6 +70,15 @@ public interface ITelegram {
 	 */
 	void sendVideo(String chatId) throws IOException, CameraException, BotTokenAccessException, TelegramException, FileAccessException;
 	
+	
+	/**
+	 * Sets motion detection state.
+	 * @param value Boolean value of state; {@code true} to start motion detection, {@code false} otherwise
+	 * @param chatId Id of telegram chat
+	 * @throws IOException if unable to connect to telegram
+	 * @throws BotTokenAccessException if unable to access bot token
+	 */
+	void setMotionDetection(boolean value, String chatId) throws IOException, BotTokenAccessException;
 	
 	
 }

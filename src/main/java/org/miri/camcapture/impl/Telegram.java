@@ -2,7 +2,6 @@ package org.miri.camcapture.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -65,16 +64,12 @@ public enum Telegram implements ITelegram {
 	/**
 	 * Forwards the retrieved command to the right method.<br>
 	 * Defaults to sending message to chat (if retrieved command isn't listed).
-	 * @throws BotTokenAccessException 
-	 * @throws FileAccessException 
-	 * @throws TelegramException 
 	 */
-	public void executeCommand(String chatId, String command) 
-			throws IOException, CameraException, BotTokenAccessException, FileAccessException, TelegramException  {
-		command = command.substring(1, command.length() -1); //removes quotation marks from command
-		//TODO remove print
-		System.out.printf("executeCommand(%s, %s) thread = %s \n", chatId, command,
-				Thread.currentThread().getName());
+	public void execute(String chatId, String command) 
+			throws IOException, CameraException, BotTokenAccessException, FileAccessException,
+					TelegramException  {		
+		//removes quotation marks from command
+		command = command.substring(1, command.length() -1).toLowerCase();
 		switch (command) {
 			case BotCommands.IMAGE:
 				sendImage(chatId);
@@ -85,12 +80,13 @@ public enum Telegram implements ITelegram {
 				break;
 				
 			case BotCommands.DETECT_ON:
-				MotionDetector.INSTANCE.start(chatId);
+				setMotionDetection(true, chatId);
 				break;
 				
 			case BotCommands.DETECT_OFF:
-				MotionDetector.INSTANCE.stop();
+				setMotionDetection(false, chatId);
 				break;
+				
 			default:
 				sendMessage(chatId, "Command not recognized. Please speak Bot to me.");
 				break;
@@ -102,10 +98,6 @@ public enum Telegram implements ITelegram {
 	/**
 	 * Sends a text message to given chatId. <br>
 	 * Uses a {@link HttpPost} object to send a POST request to Telegram with requested method fields.
-	 * @param chatId chat to send message to
-	 * @param content message to send
-	 * @throws BotTokenAccessException 
-	 * @throws IOException if unable to connect to telegram
 	 */
 	public void sendMessage(String chatId, String msg) throws IOException, BotTokenAccessException {
 		//adds chat id and message text to HTTP request
@@ -118,12 +110,6 @@ public enum Telegram implements ITelegram {
 	/**
 	 * Sends a captured image to given chatId. <br>
 	 * Uses a {@link HttpPost} object to send a POST request to Telegram with requested method fields.
-	 * @param chatId chat to send image to
-	 * @param capturefile file of image to send
-	 * @throws BotTokenAccessException 
-	 * @throws IOException if unable to connect to telegram
-	 * @throws CameraException 
-	 * @throws FileAccessException 
 	 */
 	public void sendImage(String chatId) throws CameraException, BotTokenAccessException, 
 														IOException, FileAccessException {
@@ -131,6 +117,9 @@ public enum Telegram implements ITelegram {
 		sendImage(chatId, image);
 	}
 	
+	/**
+	 * Sends given image to chat.
+	 */
 	public void sendImage(String chatId, File image) throws IOException, BotTokenAccessException {
 		sendMessage(chatId, "Sending image...");
 		//composing attributes for POST request
@@ -146,13 +135,6 @@ public enum Telegram implements ITelegram {
 	/**
 	 * Sends a captured video to given chatId. <br>
 	 * Uses a {@link HttpPost} object to send a POST request to Telegram with requested method fields.
-	 * @param chatId chat to send video to
-	 * @param capturefile file of video to send
-	 * @throws IOException if unable to connect to telegram
-	 * @throws CameraException 
-	 * @throws BotTokenAccessException 
-	 * @throws FileAccessException 
-	 * @throws TelegramException 
 	 */
 	public void sendVideo(String chatId) throws IOException, CameraException, BotTokenAccessException, TelegramException, FileAccessException {
 		sendMessage(chatId, "Sending video...");
@@ -166,6 +148,19 @@ public enum Telegram implements ITelegram {
 		logInvalidResponseStatus("Unable to send video", response.getStatusLine(), chatId);
 	}
 	
+	/**
+	 * Sets motion detection state.
+	 */
+	public void setMotionDetection(boolean value, String chatId) throws IOException, BotTokenAccessException {
+		if (value) {
+			MotionDetector.INSTANCE.start(chatId);
+			sendMessage(chatId, "Motion detection on");
+		}
+		else {
+			MotionDetector.INSTANCE.stop();
+			sendMessage(chatId, "Motion detection off");
+		}
+	}
 	
 	
 	/*
@@ -175,8 +170,8 @@ public enum Telegram implements ITelegram {
 	
 	/**
 	 * Retrieves bot URL.
-	 * @return
-	 * @throws BotTokenAccessException
+	 * @return A String representing bot url
+	 * @throws BotTokenAccessException if unable to access bot token
 	 */
 	private String getBotURL() throws BotTokenAccessException {
 		if (botURL == null || botURL.isEmpty())
@@ -185,7 +180,7 @@ public enum Telegram implements ITelegram {
 	}
 	
 	/**
-	 * 
+	 * Sends an {@link HttpPost} request to given URL. Returns an {@link HttpResponse} object.
 	 * @param url URL to send the HTTP request to. 
 	 * @param builder a {@link MultipartEntityBuilder} object
 	 * @return an {@link HttpResponse} object
@@ -205,10 +200,6 @@ public enum Telegram implements ITelegram {
 	 * @throws IOException if unable to connect to telegram
 	 */
 	private HttpResponse fetchUpdates(String url) throws IOException {
-		//TOOD remove
-		/*
-		if (lastOffset != 0)
-			url += "?offset=" + (lastOffset+1);*/
 		HttpGet httpGet = new HttpGet(url);
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpResponse response = client.execute(httpGet);
@@ -229,12 +220,12 @@ public enum Telegram implements ITelegram {
 			String command = jObject.getJsonString(TelegramConstants.TEXT_FIELD).toString();
 			int chatId = jObject.getJsonObject(TelegramConstants.CHAT_FIELD).getInt(TelegramConstants.ID_FIELD);
 			try {
-				CompletableFuture.anyOf(executeCommand(chatId+"", command));
-			} catch (Exception exc) {
-				logger.error(exc.getMessage(), exc);
+				execute(chatId+"", command);
+			} catch (Exception e) {
+				logger.error("Unable to execute command '" + command +"': " + e.getMessage(), e);
 			}
 		}
-		lastOffset = results.getJsonObject(results.size()-1).getInt("update_id") + 1;
+		lastOffset = results.getJsonObject(results.size()-1).getInt(TelegramConstants.UPDATE_ID_FIELD) + 1;
 	}
 	
 	
