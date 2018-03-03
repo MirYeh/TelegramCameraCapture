@@ -32,9 +32,9 @@ _detectOff_ | Stops motion detection
 
 ## Getting Started
 
-1. [Download TelegramCameraCapture jar][link to jar]
+1. [Download TelegramCameraCapture jar](https://github.com/MirYeh/TelegramCameraCapture/raw/master/extra/TelegramCameraCapture-0.0.1.jar)
 2. Create a bot (search @BotFather on Telegram)
-3. Save you bot token to a file named _CameraCaptureBotToken_ in the same folder as your jar file ([see example file][link to botTokenExampleFile]
+3. Save you bot token to a file named _CameraCaptureBotToken_ in the same folder as your jar file ([see example file](https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/CameraCaptureBotTokenExample)
 4. Run TelegramCameraCapture jar
 ```html
 run -jar <i>jarname</i>.jar
@@ -42,18 +42,9 @@ run -jar <i>jarname</i>.jar
 5. Start sending commands to your bot!
 
 
-<img src="https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/screenshots/detect-on-off-command.png" alt="detect on and off command screenshot" width="50%" height="50%">
-
-<img src="https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/screenshots/video-command.png" alt="video command screenshot" width="50%" height="50%">
+<img src="https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/screenshots/detect-on-off-command.png" alt="detect on and off command screenshot" width="30%" height="30%">   <img src="https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/screenshots/video-command.png" alt="video command screenshot" width="30%" height="30%">
 
 
 
 
-
-
-
-
-[link to jar]:(https://github.com/MirYeh/TelegramCameraCapture/raw/master/extra/TelegramCameraCapture-0.0.1.jar)
-
-[link to botTokenExampleFile]:(https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/CameraCaptureBotTokenExample)
 
