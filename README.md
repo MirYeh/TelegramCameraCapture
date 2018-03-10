@@ -1,9 +1,9 @@
 # Telegram Camera Capture
 
-Capture images and videos from a web camera using a motion detection engine and stream it remotely via Telegram.
+- [x] capture images and videos
+- [x] detect motion
 
-[x] capture images and videos
-[x] detect motion
+Capture images and videos from a web camera using a motion detection engine and stream it remotely via Telegram.
 
 Running this program on your computer, you can start asking your Telegram Bot to capture images and videos and send them to your chat. Bots can be added to a group, such as a family telegram group, so that captured data can be shared with your family and friends.
 
@@ -37,7 +37,7 @@ _detectOff_ | Stops motion detection
 3. Save you bot token to a file named _CameraCaptureBotToken_ in the same folder as your jar file ([see example file](https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/CameraCaptureBotTokenExample))
 4. Run TelegramCameraCapture jar
 ```
-run -jar TelegramCameraCapture-0.0.1.jar
+java -jar TelegramCameraCapture-0.0.1.jar
 ```
 5. Start sending commands to your bot!
 
