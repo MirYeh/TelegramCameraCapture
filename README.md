@@ -38,11 +38,14 @@ _detectOff_ | Stops motion detection
 2. [Create a bot](https://web.telegram.org/#/im?p=@BotFather)
 
 <img src="https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/screenshots/small-create-bot.png" alt="screenshot" title="create bot">
+
 3. Save you bot token to a file named _CameraCaptureBotToken_ in the same folder as your jar file ([see example token file](https://github.com/MirYeh/TelegramCameraCapture/blob/master/extra/CameraCaptureBotTokenExample))
+
 4. Run TelegramCameraCapture jar
 ```
 java -jar TelegramCameraCapture-0.0.1.jar
 ```
+
 5. Start sending commands to your bot!
 
 
