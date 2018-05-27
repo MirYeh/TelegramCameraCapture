@@ -1,6 +1,6 @@
 # Telegram Camera Capture
 
-Capture images and videos from a web camera using a motion detection engine and stream it remotely via Telegram.
+A desktop service for capturing images and videos using a motion detection engine and streaming them remotely via Telegram
 
 Running this program on your computer, you can start asking your Telegram Bot to capture images and videos and send them to your Telegram chat. Bots can be added to a group chat, such as a family telegram group, so that captured media can be shared with your family and friends.
 
